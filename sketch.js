@@ -8,7 +8,7 @@ function setup(){
     spritejogador =createSprite(width/2,height/2,80,80);
    // spriteinimigo =createSprite(width/4,height/4,100,85);
 }
-
+//
 function draw(){
 background(255,0,0);
 if(keyDown("right") && spritejogador.position.x <width-40 ){
