@@ -1,16 +1,26 @@
 var spritejogador,spriteinimigo,spritesolo,spritetiro;
 var inimigos=[];
 var tiros=[];
+var fundoimg;
+var personagemimg;
+function preload(){
+fundoimg = loadImage("./ativos/fundo.png");
+personagemimg =loadImage("./ativos/personagem.png");
+
+}
 
 function setup(){
     createCanvas(windowWidth,windowHeight-5);
     spritesolo =createSprite(width/2,height,width,13);
     spritejogador =createSprite(width/2,height/2,80,80);
+    spritejogador.addImage(personagemimg);
    // spriteinimigo =createSprite(width/4,height/4,100,85);
 }
-//
+
 function draw(){
 background(255,0,0);
+image(fundoimg, 0,0);
+
 if(keyDown("right") && spritejogador.position.x <width-40 ){
 spritejogador.position.x +=2;
 }
@@ -33,6 +43,20 @@ criar_inimigos()
     if(keyDown("space") )  {
         disparos()
     }
+for(let i=0; i<inimigos.length; i++ ){
+  //  console.log("inimigo "+inimigos[i])
+    for(let t=0;  t<tiros.length; t++){
+      //  console.log("disparo "+tiros[t])
+if(tiros[t].position.x>inimigos[i].position.x){
+   inimigos[i].remove(); 
+   inimigos.splice(i, 1);
+   tiros[t].remove();
+   tiros.splice(t, 1);
+   
+}
+
+    }
+}
 
 drawSprites();
 
@@ -54,4 +78,7 @@ spritetiro.lifetime=500;
 tiros.push(spritetiro);
 
 
+}
+function windowResized(){
+location.reload();
 }
