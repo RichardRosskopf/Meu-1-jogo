@@ -3,18 +3,28 @@ var inimigos=[];
 var tiros=[];
 var fundoimg;
 var personagemimg;
+var inimigoimg1;
+var ultimodisparo=0;
+var delaydisparo=30;
+var placar=300;
+var spriteplacar;
+
 function preload(){
 fundoimg = loadImage("./ativos/fundo.png");
 personagemimg =loadImage("./ativos/personagem.png");
+inimigoimg1 =loadImage("./ativos/inimigo1.png");
+arma1.png =loadImage("./ativos/arma1.png");
 
 }
 
 function setup(){
     createCanvas(windowWidth,windowHeight-5);
     spritesolo =createSprite(width/2,height,width,13);
-    spritejogador =createSprite(width/2,height/2,80,80);
+    spritejogador =createSprite(width/5,height/2,80,80);
     spritejogador.addImage(personagemimg);
-   // spriteinimigo =createSprite(width/4,height/4,100,85);
+    spriteplacar = createSprite(165,30,300,30);
+    
+  
 }
 
 function draw(){
@@ -40,31 +50,42 @@ if(keyDown("up") && spritejogador.position.y >40){
 criar_inimigos()
     //console.log(spritejogador.position.y)
 
-    if(keyDown("space") )  {
-        disparos()
+    if(keyDown("space")  && frameCount - ultimodisparo >delaydisparo)  {
+        disparos();
+        ultimodisparo = frameCount;
     }
-for(let i=0; i<inimigos.length; i++ ){
+for(let i=inimigos.length -1; i>0; i-- ){
   //  console.log("inimigo "+inimigos[i])
-    for(let t=0;  t<tiros.length; t++){
+    for(let t=tiros.length -1;  t>0; t--){
       //  console.log("disparo "+tiros[t])
-if(tiros[t].position.x>inimigos[i].position.x){
+if(tiros[t].overlap(inimigos[i])){
    inimigos[i].remove(); 
    inimigos.splice(i, 1);
    tiros[t].remove();
    tiros.splice(t, 1);
-   
+   break;
 }
 
     }
 }
+for(let i = inimigos.lenght -1; i>0;i--){
+if(inimigos[i].overlap(spritejogador)){
+    console.log("tocou!");
+    inimigos[i].remove();
+    inimigos.splice(i,1);
+    placar -=100;
+}
 
+}
 drawSprites();
 
 }
 
 function criar_inimigos(){
 if(frameCount %120 ===0)
-   { spriteinimigo = createSprite(width+100, height-20, 25,100);
+   { spriteinimigo = createSprite(width+100, height-140, 25,100);
+    spriteinimigo.addImage(inimigoimg1);
+    spriteinimigo.scale=0.4;
     spriteinimigo.velocity.x=-2;
     spriteinimigo.lifetime = 300;
     inimigos.push(spriteinimigo);
