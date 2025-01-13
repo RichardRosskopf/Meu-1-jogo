@@ -77,6 +77,21 @@ if(inimigos[i].overlap(spritejogador)){
 }
 
 }
+
+for(let j = inimigos.length -1;j>0; j--){
+    if(inimigos[j].position.x< spritejogador.position.x   ){
+        inimigos[j].remove();
+        inimigos.splice(j, 1);
+        placar -=100;
+        if(placar <= 0){
+spritejogador.destroy();
+        
+        }
+    }
+}
+
+
+
 drawSprites();
 
 }
