@@ -1,19 +1,22 @@
-var spritejogador,spriteinimigo,spritesolo,spritetiro;
-var inimigos=[];
-var tiros=[];
-var fundoimg;
-var personagemimg;
-var inimigoimg1;
-var ultimodisparo=0;
-var delaydisparo=30;
-var placar=300;
-var spriteplacar;
+let  spritejogador,spriteinimigo,spritesolo,spritetiro;
+let  inimigos=[];
+let  tiros=[];
+let fundoimg;
+let  personagemimg;
+let  inimigoimg1;
+let  ultimodisparo=0;
+let  delaydisparo=30;
+let  placar=300;
+let  spriteplacar;
+let  carregarSom;
+let statusJogo = "start";
 
 function preload(){
 fundoimg = loadImage("./ativos/fundo.png");
 personagemimg =loadImage("./ativos/personagem.png");
 inimigoimg1 =loadImage("./ativos/inimigo1.png");
-arma1.png =loadImage("./ativos/arma1.png");
+//arma1.png =loadImage("./ativos/arma1.png");
+
 
 }
 
@@ -28,6 +31,7 @@ function setup(){
 }
 
 function draw(){
+    //carregarSom.play();
 background(255,0,0);
 image(fundoimg, 0,0);
 
@@ -117,4 +121,12 @@ tiros.push(spritetiro);
 }
 function windowResized(){
 location.reload();
+}
+
+function IniciarJogo (){
+let inicio =createSprite(100,40,windowWidth,windowHeight);
+fill("white");
+stroke("white");
+textSize(30);
+    text("pressione a tecla ENTER para começar!" ,width/2,50);
 }
