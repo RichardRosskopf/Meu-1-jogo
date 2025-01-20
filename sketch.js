@@ -22,7 +22,7 @@ function setup(){
     spritesolo =createSprite(width/2,height,width,13);
     spritejogador =createSprite(width/5,height/2,80,80);
     spritejogador.addImage(personagemimg);
-    spriteplacar = createSprite(165,30,300,30);
+   // spriteplacar = createSprite(165,30,300,30);
     
   
 }
@@ -54,9 +54,9 @@ criar_inimigos()
         disparos();
         ultimodisparo = frameCount;
     }
-for(let i=inimigos.length -1; i>0; i-- ){
+for(let i=inimigos.length -1; i>=0; i-- ){
   //  console.log("inimigo "+inimigos[i])
-    for(let t=tiros.length -1;  t>0; t--){
+    for(let t=tiros.length -1;  t>=0; t--){
       //  console.log("disparo "+tiros[t])
 if(tiros[t].overlap(inimigos[i])){
    inimigos[i].remove(); 
@@ -68,30 +68,30 @@ if(tiros[t].overlap(inimigos[i])){
 
     }
 }
-for(let i = inimigos.lenght -1; i>0;i--){
-if(inimigos[i].overlap(spritejogador)){
-    console.log("tocou!");
-    inimigos[i].remove();
-    inimigos.splice(i,1);
-    placar -=100;
-}
 
-}
 
-for(let j = inimigos.length -1;j>0; j--){
+for(let j = inimigos.length -1;j>=0; j--){
     if(inimigos[j].position.x< spritejogador.position.x   ){
         inimigos[j].remove();
         inimigos.splice(j, 1);
         placar -=100;
-        if(placar <= 0){
-spritejogador.destroy();
-        
-        }
+       
     }
 }
-
-
-
+if(placar <= 0){
+    
+fill("white");
+stroke("white");
+textSize(30);
+    text("Quase lá!,continue tentando!" ,width/2,50);
+    spritejogador.position.x=-700;
+    spritejogador.position.y=10;
+           
+           }
+fill("white");
+stroke('white');
+textSize(30);
+text("placar " + placar,100,50);
 drawSprites();
 
 }
