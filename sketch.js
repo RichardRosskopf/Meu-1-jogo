@@ -9,7 +9,7 @@ let  delaydisparo=30;
 let  placar=300;
 let  spriteplacar;
 let  carregarSom;
-let statusJogo = "start";
+let estadoJogo = "start";
 
 function preload(){
 fundoimg = loadImage("./ativos/fundo.png");
@@ -33,6 +33,11 @@ function setup(){
 function draw(){
     //carregarSom.play();
 background(255,0,0);
+
+if (estadoJogo =="start" ) {
+    IniciarJogo()
+}
+
 image(fundoimg, 0,0);
 
 if(keyDown("right") && spritejogador.position.x <width-40 ){
@@ -124,9 +129,9 @@ location.reload();
 }
 
 function IniciarJogo (){
-let inicio =createSprite(100,40,windowWidth,windowHeight);
-fill("white");
-stroke("white");
+let inicio =createSprite(windowWidth/2,windowHeight/2,windowWidth,windowHeight);
+fill("white");//cor da area do texto
+stroke("white");//cor da borda do texto
 textSize(30);
-    text("pressione a tecla ENTER para começar!" ,width/2,50);
+    text("pressione a tecla ENTER para começar!" ,200,50);
 }
